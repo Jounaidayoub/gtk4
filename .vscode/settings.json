@@ -1,0 +1,8 @@
+{
+    
+
+
+    //we are using clangd , so disable this for conflics
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "C_Cpp.suggestSnippets": true
+}
