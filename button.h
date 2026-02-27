@@ -17,7 +17,10 @@ typedef struct{
     const char *label;
     GtkWidget *group_with;
     bool is_active;
-}Radiobutton;
+} Radiobutton;
+
 GtkWidget *create_button(button *btnConfig);
 GtkWidget *create_radio_button(Radiobutton *btnConfig);
+void on_aide_clicked(GtkButton *btn, gpointer parent_window);
+
 #endif

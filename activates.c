@@ -3,14 +3,12 @@
 #include "button.h"
 #include "containers.h"
 #include "input.h"    
-#include "select.h"   
-#include "aide.h"
 
 void activatewin1(GtkApplication *app, gpointer user_data) {
     (void)user_data;
 
     Window winConfig = {
-        .title = "Mon Projet Universitaire",
+        .title = "Formulaire d'inscription",
         .width = 600,
         .height = 400,
         .maximized = false

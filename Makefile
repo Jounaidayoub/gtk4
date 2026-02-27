@@ -5,7 +5,7 @@ LIBS = $(shell pkg-config --libs gtk4)
 
 BUILD_DIR = build
 TARGET = $(BUILD_DIR)/gtk-app
-SRC = main.c widgets.c activates.c button.c containers.c input.c select.c aide.c
+SRC = main.c widgets.c activates.c button.c containers.c input.c
 
 all: $(BUILD_DIR) $(TARGET)
 
