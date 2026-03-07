@@ -20,3 +20,11 @@ style & widget\_style\_config & Configuration (marges, CSS) \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{orientation} permet de définir si la ligne de séparation doit être horizontale ou verticale (\texttt{GTK\_ORIENTATION\_HORIZONTAL} ou \texttt{VERTICAL}). C'est l'outil de design par excellence pour délimiter visuellement deux zones distinctes dans une interface chargée.
+
+On l'utilise couramment pour séparer une barre d'outils du contenu principal ou pour diviser deux colonnes de texte, aidant ainsi l'utilisateur à comprendre la structure hiérarchique de l'application.
+
+Le champ \texttt{style} permet d'ajuster l'apparence du séparateur via la structure \texttt{widget\_style\_config}. Il est particulièrement utile pour ajouter des marges (\texttt{margin}) afin que la ligne ne touche pas les bords des widgets adjacents, créant une interface plus aérée et professionnelle.

@@ -34,6 +34,23 @@ on\_response & callback & Fonction appelée après un choix \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{parent} lie l'alerte à une fenêtre principale. Cela permet de centrer le dialogue sur l'application et de s'assurer qu'il reste au premier plan, empêchant l'utilisateur de l'ignorer accidentellement.
+
+Le champ \texttt{message} représente le titre en gras de l'alerte. C'est l'information prioritaire qui doit résumer le problème ou la question posée à l'utilisateur de manière concise.
+
+Le champ \texttt{detail} offre un espace pour un texte explicatif plus long. On l'utilise pour donner des précisions techniques ou guider l'utilisateur sur la manière de résoudre l'erreur affichée sans surcharger le titre.
+
+Le champ \texttt{buttons} est un pointeur vers un tableau de \texttt{alert\_button\_config}. Il permet de définir dynamiquement le nombre et le texte des choix (ex: "Réessayer", "Quitter").
+
+Les champs \texttt{default\_button} et \texttt{cancel\_button} utilisent des index pour désigner quel bouton est activé par la touche "Entrée" et lequel l'est par la touche "Échap", améliorant ainsi l'ergonomie au clavier.
+
+Le champ \texttt{modal}, lorsqu'il est à \texttt{true}, bloque toute interaction avec le reste de l'application tant que le dialogue n'est pas fermé, ce qui est crucial pour les confirmations critiques.
+
+Le champ \texttt{on\_response} est le callback qui reçoit l'index du bouton cliqué, permettant de brancher la logique de décision suite au choix de l'utilisateur.
+
 \subsection{Structure \texttt{alert\_button\_config}}
 \begin{lstlisting}[language=C]
 typedef struct {
@@ -52,3 +69,9 @@ appearance & const char* & Style CSS du bouton (ex: "suggested-action") \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{label} définit le texte qui sera affiché sur le bouton (par exemple : "Accepter", "Annuler" ou "Supprimer"). Il doit être clair et indiquer précisément l'action qui sera déclenchée par le clic de l'utilisateur.
+
+Le champ \texttt{appearance} permet d'appliquer un style visuel prédéfini au bouton pour guider l'utilisateur. On utilise généralement la valeur \texttt{"suggested"} (souvent coloré en bleu) pour l'action principale recommandée, ou \texttt{"destructive"} (coloré en rouge) pour avertir d'une action irréversible comme une suppression.

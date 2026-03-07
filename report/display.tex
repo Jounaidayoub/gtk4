@@ -33,6 +33,22 @@ style & widget\_style\_config & Configuration du style \\
 \end{tabular}
 \end{center}
 
+\bigskip
+
+Le champ \texttt{text} constitue le cœur du widget ; il définit la chaîne de caractères qui sera rendue à l'écran. Ce champ supporte les balises Pango, permettant d'appliquer du style (gras, couleur, taille) directement dans le texte.
+
+Le champ \texttt{selectable} transforme un texte statique en un élément interactif. Lorsqu'il est activé, l'utilisateur peut surligner et copier le texte (comme un numéro de série ou une URL), ce qui est crucial pour l'accessibilité et l'utilité des informations affichées.
+
+Le champ \texttt{wrap} gère la fluidité de l'interface. S'il est activé, le texte passera automatiquement à la ligne au lieu de forcer la fenêtre à s'élargir indéfiniment, permettant ainsi de maintenir une mise en page cohérente sur différents formats d'écran.
+
+Le champ \texttt{ellipsize} offre une alternative élégante au retour à la ligne : si l'espace est insuffisant, il tronque le texte en ajoutant des points de suspension au début, au milieu ou à la fin, préservant ainsi l'alignement global.
+
+Le champ \texttt{max\_width\_chars} permet de limiter physiquement la largeur du label en nombre de caractères. Cela aide à définir une structure de page prévisible, empêchant un texte trop long de déformer les conteneurs parents.
+
+Le champ \texttt{style} permet d'appliquer la structure \texttt{widget\_style\_config}, gérant ainsi les marges, l'alignement et les classes CSS spécifiques à ce label.
+
+\bigskip
+
 \subsection{Structure \texttt{image\_config}}
 \begin{lstlisting}[language=C]
 typedef struct {
@@ -59,6 +75,16 @@ keep\_aspect & bool & Conserve les proportions de l'image \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{icon\_name} permet d'utiliser les icônes standards du thème système, garantissant une intégration visuelle parfaite avec l'environnement de bureau de l'utilisateur.
+
+Le champ \texttt{file\_path} offre la possibilité de charger des images personnalisées (PNG, JPEG, SVG) depuis le disque pour des besoins spécifiques au projet.
+
+Le champ \texttt{pixel\_size} définit la dimension exacte de l'image. Cela garantit une netteté optimale en évitant les flous liés au redimensionnement automatique.
+
+Le champ \texttt{keep\_aspect} assure que l'image conserve ses proportions originales, évitant toute déformation visuelle lors des changements de taille du conteneur.
 
 \subsection{Exemple d'utilisation}
 \begin{lstlisting}[language=C]
@@ -103,6 +129,16 @@ pulse\_once & bool & Active le mode indéterminé (va-et-vient) \\
 \end{tabular}
 \end{center}
 
+Le champ \texttt{fraction} définit l'état d'avancement, de 0.0 à 1.0. C'est ce paramètre qui déplace visuellement la barre pour informer l'utilisateur de l'état d'une tâche.
+
+Le champ \texttt{text} permet de superposer un message personnalisé ou un pourcentage directement sur la barre de progression.
+
+Le champ \texttt{show\_text} contrôle la visibilité du texte précédemment défini, permettant d'alterner entre une barre simple et une barre informative.
+
+Le champ \texttt{inverted} permet de faire progresser la barre dans le sens inverse (de droite à gauche), offrant plus de flexibilité pour certains designs.
+
+Le champ \texttt{pulse\_once} active le mode "indéterminé" où un bloc fait des va-et-vient, idéal pour indiquer que le programme travaille sans connaître la durée exacte.
+
 \subsection{Structure \texttt{spinner\_config}}
 \begin{lstlisting}[language=C]
 typedef struct {
@@ -122,3 +158,11 @@ spinning & bool & Active ou désactive l'animation \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{size} permet de définir les dimensions du spinner en pixels. Comme il s'agit d'un indicateur de chargement circulaire, ce paramètre assure que le widget reste proportionnel aux autres éléments de l'interface (comme un bouton ou un label).
+
+Le champ \texttt{spinning} agit comme un interrupteur : lorsqu'il est à \texttt{true}, l'animation de rotation commence ; à \texttt{false}, l'animation s'arrête et le widget devient invisible ou statique. C'est l'outil idéal pour indiquer qu'un processus d'arrière-plan est en cours sans connaître sa durée exacte.
+
+Le champ \texttt{style} permet d'appliquer la structure \texttt{widget\_style\_config}. Il est particulièrement utile ici pour gérer l'alignement (\texttt{halign}, \texttt{valign}) afin de centrer parfaitement l'icône de chargement dans un conteneur ou de lui donner des marges pour qu'il ne colle pas aux bords de la fenêtre.

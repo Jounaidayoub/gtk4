@@ -55,3 +55,19 @@ tooltip & const char* & Texte d'infobulle au survol \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Les champs \texttt{css\_class} et \texttt{css\_classes} permettent d'injecter des styles personnalisés via des feuilles de style CSS. Cela permet de décorer un widget (couleurs, bordures, polices) sans modifier le code C, en utilisant les classes standards de GTK ou les vôtres.
+
+Les champs \texttt{width\_request} et \texttt{height\_request} définissent la taille minimale que le widget doit occuper. C'est essentiel pour forcer une zone de texte ou un bouton à garder une dimension lisible, même si son contenu est très court.
+
+Les champs \texttt{margin\_top}, \texttt{bottom}, \texttt{start} et \texttt{end} gèrent la respiration de l'interface. En ajoutant de l'espace autour du widget, vous évitez qu'il ne "colle" aux autres éléments ou aux bords de la fenêtre, ce qui rend l'application plus esthétique.
+
+Les champs \texttt{halign} et \texttt{valign} (associés à leurs booléens \texttt{set\_*}) contrôlent l'alignement précis. Ils permettent de placer un widget au centre, au début ou à la fin de l'espace qui lui est alloué, tant horizontalement que verticalement.
+
+Les champs \texttt{hexpand} et \texttt{vexpand} sont cruciaux pour le redimensionnement. S'ils sont activés, le widget "poussera" les autres pour occuper tout l'espace disponible restant dans la fenêtre, ce qui est typique pour une zone de texte principale ou une liste.
+
+Les champs \texttt{sensitive} et \texttt{visible} contrôlent l'état interactif. Un widget non sensitif apparaît grisé et ne réagit plus aux clics, tandis qu'un widget non visible disparaît totalement de la mise en page.
+
+Le champ \texttt{tooltip} définit le texte d'aide qui s'affiche au survol de la souris. C'est un élément clé de l'accessibilité pour expliquer brièvement la fonction d'un bouton ou d'une icône à l'utilisateur.

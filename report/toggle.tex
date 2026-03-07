@@ -1,4 +1,6 @@
+\bigskip
 \section{Boutons d'état (Toggle)}
+
 
 \subsection{Structure \texttt{checkbox\_config}}
 \begin{lstlisting}[language=C]
@@ -29,6 +31,14 @@ on\_toggled & callback & Fonction appelée lors du changement d'état \\
 \end{tabular}
 \end{center}
 
+Le champ \texttt{label} définit le texte descriptif placé à côté de la case à cocher. Il est crucial pour indiquer clairement à l'utilisateur quelle option il est en train d'activer (par exemple : "Accepter les conditions").
+
+Le champ \texttt{active} représente l'état booléen de la case. S'il est à \texttt{true}, la case apparaît cochée par défaut. C'est l'outil principal pour mémoriser et restaurer les préférences de l'utilisateur.
+
+Le champ \texttt{inconsistent} est un état visuel spécial (souvent un tiret) indiquant que l'option n'est ni totalement active, ni totalement inactive. On l'utilise généralement pour des sélections groupées où certains sous-éléments sont cochés et d'autres non.
+
+Le champ \texttt{on\_toggled} est le signal déclenché à chaque clic. Il permet de mettre à jour instantanément la logique de l'application ou de débloquer d'autres éléments de l'interface suite à une validation.
+
 \subsection{Structure \texttt{switch\_config}}
 \begin{lstlisting}[language=C]
 typedef struct {
@@ -37,8 +47,7 @@ typedef struct {
     bool state;
     widget_style_config style;
     void (*on_active_changed)(GtkSwitch *sw, GParamSpec *pspec, gpointer user_data);
-    gpointer user_data;
-} switch_config;
+    gpointer user_data;} switch_config;
 \end{lstlisting}
 
 \begin{center}
@@ -54,3 +63,11 @@ on\_active\_changed & callback & Fonction appelée quand la position change \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{active} détermine la position physique du commutateur. Contrairement à une case à cocher, le switch est souvent utilisé pour des actions qui ont un effet immédiat et global sur le comportement de l'application.
+
+Le champ \texttt{state} définit l'état logique interne. Dans certains cas, il permet de différencier l'état visuel de l'état réel de la fonction (par exemple, si une connexion est en cours).
+
+Le champ \texttt{on\_active\_changed} est le callback dédié à ce widget. Il est utilisé pour déclencher les processus lourds (allumer un module, changer de thème) dès que le commutateur change de position.

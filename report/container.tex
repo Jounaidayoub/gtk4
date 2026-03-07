@@ -29,6 +29,16 @@ style & widget\_style\_config & Configuration de base du widget \\
 \end{tabular}
 \end{center}
 
+\bigskip
+
+Le champ \texttt{orientation} détermine le sens de lecture visuelle de l'interface. En mode \texttt{VERTICAL}, les widgets s'empilent comme les éléments d'un menu ou d'un formulaire. En mode \texttt{HORIZONTAL}, ils se rangent côte à côte, ce qui est idéal pour créer des barres d'outils ou des rangées de boutons de navigation.
+
+Le champ \texttt{spacing} permet de définir un espacement fixe et uniforme entre chaque élément enfant du conteneur. Cela garantit une cohérence visuelle immédiate sans avoir à configurer manuellement les marges individuelles de chaque widget, rendant l'interface plus aérée et lisible.
+
+Le champ \texttt{homogeneous} est un outil de design puissant : lorsqu'il est activé, il force tous les widgets enfants à occuper exactement la même largeur (ou hauteur). Cela permet de créer des grilles de boutons parfaitement symétriques, quel que soit le texte qu'ils contiennent, assurant un rendu professionnel et équilibré.
+
+Le champ \texttt{style} permet d'appliquer la configuration commune (\texttt{widget\_style\_config}) à l'ensemble du conteneur, facilitant ainsi la gestion des marges globales ou l'application de classes CSS thématiques à tout un groupe de widgets.
+
 \subsection{Structure \texttt{grid\_config}}
 
 \begin{lstlisting}[language=C]
@@ -53,23 +63,12 @@ homogeneous\_* & bool & Force les colonnes/lignes à être de taille égale \\
 \end{tabular}
 \end{center}
 
-\subsection{Exemple d'utilisation (Box)}
+\bigskip
 
-\begin{lstlisting}[language=C]
-#include "container.h"
+Les champs \texttt{column\_spacing} et \texttt{row\_spacing} permettent de créer une grille aérée. Contrairement à une Box, la grille gère l'espace de manière bidimensionnelle, ce qui est crucial pour aligner parfaitement des étiquettes à gauche avec des champs de saisie à droite, comme dans un panneau de configuration.
 
-void create_layout(GtkWidget *parent) {
-    box_config my_box = {
-        .orientation = GTK_ORIENTATION_VERTICAL,
-        .spacing = 10,
-        .homogeneous = false,
-        .style = { .margin_top = 15, .margin_bottom = 15 }
-    };
-    
-    GtkWidget *box = create_box(&my_box);
-    // gtk_box_append(GTK_BOX(parent), box);
-}
-\end{lstlisting}
+Les champs \texttt{homogeneous\_columns} et \texttt{homogeneous\_rows} garantissent que toutes les cellules de la grille ont la même taille. C'est particulièrement utile pour créer un clavier numérique ou une calculatrice où chaque touche doit avoir des dimensions identiques pour conserver une esthétique régulière.
+
 \subsection{Structure \texttt{stack\_config}}
 \begin{lstlisting}[language=C]
 typedef struct {
@@ -93,3 +92,29 @@ vhomogeneous / hhomogeneous & bool & Force les pages à avoir la même hauteur/l
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{transition} définit l'effet visuel lors du changement de page (glissement latéral, fondu enchaîné, etc.). Cela transforme un changement de contenu brutal en une navigation fluide et moderne, typique des applications mobiles.
+
+Le champ \texttt{duration\_ms} contrôle la vitesse de cette animation. Une durée courte (environ 300ms) donne une impression de réactivité, tandis qu'une durée plus longue permet à l'utilisateur de bien comprendre la transition entre deux sections de l'application.
+
+Les champs \texttt{vhomogeneous} et \texttt{hhomogeneous} permettent de décider si le conteneur doit toujours garder la taille de sa plus grande page. Si désactivé, la fenêtre se redimensionnera automatiquement pour s'adapter au contenu de la page actuelle, ce qui offre plus de flexibilité.
+
+
+\subsection{Exemple d'utilisation (Box)}
+
+\begin{lstlisting}[language=C]
+#include "container.h"
+
+void create_layout(GtkWidget *parent) {
+    box_config my_box = {
+        .orientation = GTK_ORIENTATION_VERTICAL,
+        .spacing = 10,
+        .homogeneous = false,
+        .style = { .margin_top = 15, .margin_bottom = 15 }
+    };
+    GtkWidget *box = create_box(&my_box);
+    // gtk_box_append(GTK_BOX(parent), box);
+}
+\end{lstlisting}

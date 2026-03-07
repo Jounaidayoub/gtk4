@@ -31,3 +31,17 @@ on\_day\_selected & callback & Fonction appelée lors du clic sur un jour \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{selected\_date} définit la date qui sera mise en évidence lors de l'affichage initial du calendrier. Cela permet de positionner l'utilisateur sur une échéance précise ou sur la date du jour dès l'ouverture du widget.
+
+Le champ \texttt{show\_day\_names} contrôle l'affichage de l'en-tête contenant le nom des jours (Lun, Mar, etc.). Le désactiver permet d'obtenir un rendu plus compact si l'espace est limité.
+
+Le champ \texttt{show\_week\_numbers} ajoute une colonne sur le côté gauche indiquant le numéro de la semaine dans l'année. C'est une fonctionnalité indispensable pour les applications de gestion de projet ou de planification professionnelle.
+
+Le champ \texttt{no\_month\_change} permet de verrouiller le calendrier sur le mois affiché. En activant ce champ, vous empêchez l'utilisateur de naviguer vers d'autres mois, ce qui est utile pour forcer un choix dans une période restreinte.
+
+Le champ \texttt{on\_day\_selected} est le signal déclenché à chaque fois que l'utilisateur clique sur une date. Il permet de récupérer instantanément la nouvelle sélection pour mettre à jour les données de l'application ou fermer une fenêtre de dialogue.
+
+Le champ \texttt{style} assure l'intégration visuelle du calendrier (marges, alignement) au sein de votre mise en page globale.

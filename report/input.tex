@@ -36,6 +36,20 @@ on\_changed & callback & Fonction appelée à chaque modification \\
 \end{tabular}
 \end{center}
 
+\bigskip
+
+Le champ \texttt{placeholder} est essentiel pour l'expérience utilisateur ; il affiche un texte d'aide éphémère à l'intérieur de la zone de saisie, ce qui permet de guider l'utilisateur sans alourdir l'interface avec des étiquettes externes.
+
+Le champ \texttt{default\_text} permet de pré-remplir le widget avec une valeur existante. C'est une fonctionnalité indispensable pour les formulaires d'édition où l'on souhaite modifier une information déjà enregistrée.
+
+Le champ \texttt{password} modifie le mode d'affichage des caractères en les remplaçant par des symboles masqués (généralement des points). C'est la configuration de sécurité standard pour la saisie de mots de passe ou de codes confidentiels.
+
+Le champ \texttt{editable} offre un contrôle sur l'état du widget : lorsqu'il est désactivé, l'utilisateur peut toujours lire et copier le contenu, mais toute modification directe du texte est bloquée, transformant ainsi le champ en zone de lecture seule.
+
+Le champ \texttt{max\_length} définit une contrainte matérielle sur la quantité de données saisies. Cela permet de s'assurer que l'entrée utilisateur respecte les limites de votre base de données ou les contraintes de mémoire de votre application.
+
+Le champ \texttt{on\_changed} est le point d'entrée pour la programmation événementielle. Il permet d'exécuter du code à chaque fois qu'un caractère est ajouté ou supprimé, ce qui est idéal pour implémenter une recherche instantanée ou une validation de formulaire en direct.
+
 \subsection{Structure \texttt{dropdown\_config}}
 \begin{lstlisting}[language=C]
 typedef struct {
@@ -63,6 +77,20 @@ on\_selected & callback & Fonction appelée lors d'un changement de sélection \
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{options} est un tableau de chaînes de caractères (terminé par \texttt{NULL}) qui définit la liste des choix disponibles. C'est l'outil idéal pour restreindre la saisie utilisateur à des valeurs précises, comme une sélection de pays, de thèmes ou de configurations système.
+
+Le champ \texttt{selected\_index} détermine quelle option est affichée par défaut lors de l'initialisation du widget. Cela permet d'améliorer l'expérience utilisateur en pré-sélectionnant la valeur la plus courante ou celle précédemment enregistrée par l'application.
+
+Le champ \texttt{enable\_search} active un champ de saisie interne permettant de filtrer les options. Cette fonctionnalité est indispensable lorsque la liste contient de nombreux éléments, car elle évite à l'utilisateur de faire défiler manuellement une longue liste pour trouver son choix.
+
+Le champ \texttt{on\_selected} est le signal (callback) déclenché dès que l'utilisateur valide un choix. Il permet de récupérer immédiatement l'index sélectionné pour mettre à jour la logique métier ou modifier dynamiquement d'autres parties de l'interface graphique.
+
+Le champ \texttt{style} permet d'appliquer la configuration \texttt{widget\_style\_config}. Il est particulièrement utile ici pour définir une largeur minimale (\texttt{width\_request}) afin que le widget ne change pas de taille de manière inesthétique selon la longueur du texte sélectionné.
+
+\bigskip
 
 \subsection{Exemple d'utilisation}
 \begin{lstlisting}[language=C]
@@ -93,6 +121,7 @@ typedef struct {
     gpointer user_data;
 } spin_button_config;
 \end{lstlisting}
+\bigskip
 \begin{center}
 \begin{tabular}{|l|l|>{\raggedright\arraybackslash}p{6cm}|}
 \hline
@@ -114,3 +143,4 @@ on\_value\_changed & callback & Fonction appelée au changement de valeur \\
 \hline
 \end{tabular}
 \end{center}
+\bigskip

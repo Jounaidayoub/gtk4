@@ -38,6 +38,17 @@ layout & menu\_layout\_mode & Horizontal ou Vertical \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Dans la structure \texttt{menu\_item\_config}, le champ \texttt{label} définit le texte visible. Le champ \texttt{kind} est crucial : il détermine si l'élément est une action simple, un sous-menu ouvrant d'autres options, ou une section de séparation. 
+
+Le champ \texttt{children} permet de lier d'autres structures \texttt{menu\_item\_config}, créant ainsi des menus en cascade. Le champ \texttt{enabled} permet d'activer ou de griser l'élément selon le contexte, tandis que \texttt{on\_activate} gère la fonction exécutée au clic.
+
+Pour la \texttt{menubar\_config}, le champ \texttt{sections} organise la barre en blocs logiques (Fichier, Édition). Le champ \texttt{layout} définit si la barre est horizontale ou verticale, s'adaptant au design général. 
+
+Le champ \texttt{show\_arrow\_indicators} ajoute un indice visuel pour les sous-menus, et le champ \texttt{style} assure la cohérence visuelle avec le reste de l'application via les classes CSS.
+
 \subsection{Structure \texttt{menu\_section\_config}}
 \begin{lstlisting}[language=C]
 typedef struct {
@@ -59,3 +70,11 @@ item\_count & size\_t & Nombre d'éléments dans la section \\
 \hline
 \end{tabular}
 \end{center}
+
+\bigskip
+
+Le champ \texttt{label} permet de définir un titre textuel pour un groupe d'éléments au sein d'un menu. Cela est particulièrement utile pour organiser des menus denses en séparant visuellement les catégories d'actions (par exemple, séparer "Édition" de "Formatage").
+
+Le champ \texttt{items} est un pointeur vers un tableau de structures \texttt{menu\_item\_config}. Cette approche modulaire permet de construire chaque section indépendamment avant de les assembler dans la barre de menus globale, facilitant ainsi la maintenance du code.
+
+Le champ \texttt{item\_count} indique au wrapper le nombre exact d'entrées contenues dans la section. Cela permet une allocation mémoire précise et assure que tous les éléments définis sont correctement rendus dans l'interface graphique finale.
