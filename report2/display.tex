@@ -28,6 +28,15 @@ GtkWidget *create_progress_bar(const progress_bar_config *config) {
 }
 \end{lstlisting}
 
+\paragraph{Macros associées :}
+Des macros de progression apportent une clarté sémantique sur les valeurs numériques flottantes.
+
+\begin{lstlisting}[language=C]
+#define PROGRESS_START 0.0
+#define PROGRESS_HALF  0.5
+#define PROGRESS_FULL  1.0
+\end{lstlisting}
+
 \subsection{Fonction \texttt{create\_spinner}}
 
 \begin{lstlisting}[language=C]
@@ -68,6 +77,14 @@ GtkWidget *create_label(const label_config *config) {
 
     return label;
 }
+\end{lstlisting}
+
+\paragraph{Macros associées :}
+Le module s'appuie sur des macros pour simplifier la création de labels stylisés en encapsulant des structures \texttt{label\_config} prêtes à l'emploi.
+
+\begin{lstlisting}[language=C]
+#define CREATE_TITLE(t)    create_label(&(label_config){.text = t, .style = {.css_class = "title-1", .margin_bottom = 12}})
+#define CREATE_SUBTITLE(t) create_label(&(label_config){.text = t, .style = {.css_class = "title-2", .margin_bottom = 8}})
 \end{lstlisting}
 
 \subsection{Fonction \texttt{create\_image}}

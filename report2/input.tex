@@ -36,6 +36,16 @@ GtkWidget *create_entry(const entry_config *config) {
 }
 \end{lstlisting}
 
+\paragraph{Macros associées :}
+Le module propose des macros de création directe encapsulant des structures \texttt{entry\_config} pré-remplies pour des cas d'usage courants.
+
+\begin{lstlisting}[language=C]
+#define CREATE_PASSWORD_ENTRY(ph) create_entry(&(entry_config){.placeholder = ph, .password = true, .purpose_hint = "password"})
+#define CREATE_NUMERIC_ENTRY(ph)  create_entry(&(entry_config){.placeholder = ph, .purpose_hint = "number"})
+#define CREATE_EMAIL_ENTRY(ph)    create_entry(&(entry_config){.placeholder = ph, .purpose_hint = "email"})
+#define CREATE_URL_ENTRY(ph)      create_entry(&(entry_config){.placeholder = ph, .purpose_hint = "url"})
+\end{lstlisting}
+
 \subsection{Fonction \texttt{create\_dropdown}}
 
 \begin{lstlisting}[language=C]
@@ -83,6 +93,15 @@ GtkWidget *create_spin_button(const spin_button_config *config) {
 
     return spin;
 }
+\end{lstlisting}
+
+\paragraph{Macros associées :}
+Des presets de configuration facilitent l'initialisation des plages de valeurs pour les boutons numériques.
+
+\begin{lstlisting}[language=C]
+#define SPIN_PERCENT(v) (spin_button_config){.min_value = 0, .max_value = 100, .step = 1, .value = v, .digits = 0}
+#define SPIN_AGE(v)     (spin_button_config){.min_value = 0, .max_value = 120, .step = 1, .value = v, .digits = 0}
+#define SPIN_YEAR(v)    (spin_button_config){.min_value = 1900, .max_value = 2100, .step = 1, .value = v, .digits = 0}
 \end{lstlisting}
 
 \subsection{APIs GTK utilisées}

@@ -43,6 +43,16 @@ GtkWidget *create_button(const button_config *config) {
 }
 \end{lstlisting}
 
+\paragraph{Macros associées :}
+Les macros de variantes de thèmes permettent de s'abstraire des chaînes de caractères brutes. Elles garantissent l'utilisation de noms de classes CSS cohérents avec la logique interne du module, qui traduit ces alias en classes GTK réelles (ex: \texttt{btn-primary}).
+
+\begin{lstlisting}[language=C]
+#define BTN_PRIMARY "primary"
+#define BTN_SUCCESS "success"
+#define BTN_DANGER  "danger"
+#define BTN_WARNING "warning"
+\end{lstlisting}
+
 \subsection{Fonction \texttt{create\_radio\_button}}
 
 Le wrapper radio repose sur \texttt{GtkCheckButton}, comme le recommande GTK4. Le groupement exclusif est obtenu en reliant un bouton au précédent du groupe.

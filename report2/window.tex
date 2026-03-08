@@ -99,6 +99,17 @@ GtkWidget *create_window(GtkApplication *app, const window_config *config) {
 }
 \end{lstlisting}
 
+\paragraph{Macros associées :}
+Le module définit des macros pour centraliser les dimensions standards et proposer une création rapide. La macro \texttt{CREATE\_SIMPLE\_WINDOW} instancie une structure \texttt{window\_config} par défaut, tandis que les constantes \texttt{WIN\_SIZE\_*} assurent une cohérence dimensionnelle.
+
+\begin{lstlisting}[language=C]
+#define WIN_SIZE_SMALL  400, 300
+#define WIN_SIZE_MEDIUM 800, 600
+#define WIN_SIZE_LARGE  1200, 900
+
+#define CREATE_SIMPLE_WINDOW(app, t) create_window(app, &(window_config){.title = t, .default_width = 800, .default_height = 600, .resizable = true})
+\end{lstlisting}
+
 \subsection{APIs GTK utilisées}
 
 \begin{itemize}
