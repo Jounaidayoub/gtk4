@@ -80,7 +80,7 @@ GtkWidget *create_label(const label_config *config) {
 \end{lstlisting}
 
 \paragraph{Macros associées :}
-Le module s'appuie sur des macros pour simplifier la création de labels stylisés en encapsulant des structures \texttt{label\_config} prêtes à l'emploi.
+Ces macros appliquent le concept de l'initialisation désignée et des littéraux composés pour standardiser la typographie. En injectant en ligne une sous-structure imbriquée \texttt{.style = \{.css\_class = "title-1", .margin\_bottom = 12\}}, la macro configure d'un seul trait le texte et son apparence (hiérarchie CSS et espacement d'aération). Cela évite au programmeur d'éparpiller des constantes de marges ou de noms de classes dans le code de composition de l'application cliente, garantissant ainsi que chaque sous-titre de l'application bénéficiera strictement du même rendu.
 
 \begin{lstlisting}[language=C]
 #define CREATE_TITLE(t)    create_label(&(label_config){.text = t, .style = {.css_class = "title-1", .margin_bottom = 12}})

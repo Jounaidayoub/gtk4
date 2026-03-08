@@ -56,7 +56,7 @@ void apply_widget_style(GtkWidget *widget, const widget_style_config *style) {
 \end{lstlisting}
 
 \paragraph{Macros associées :}
-L'implémentation repose sur des macros de substitution pour les types énumérés de GTK. Cette approche permet de découpler légèrement le code utilisateur des constantes internes de GTK tout en conservant une performance maximale. Les macros de marges garantissent une cohérence visuelle dans l'ensemble de l'application.
+L'implémentation de la configuration visuelle est complétée par des macros de substitution. La première série mappe nos propres constantes (ex: \texttt{ALIGN\_CENTER}) directement sur les types énumérés internes de GTK. Cette approche encapsule le code utilisateur en le découplant légèrement de l'API sous-jacente tout en conservant une résolution à la compilation, assurant une performance maximale sans coût d'exécution. La seconde série (\texttt{MARGIN\_*} ) instaure un système de design (Design System) par paliers fixes. En forçant l'utilisation de ces constantes plutôt que des valeurs magiques éparpillées (magic numbers), le wrapper garantit mécaniquement une harmonie spatiale et une cohérence visuelle dans l'ensemble de l'application.
 
 \begin{lstlisting}[language=C]
 #define ALIGN_START  GTK_ALIGN_START

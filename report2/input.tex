@@ -37,7 +37,7 @@ GtkWidget *create_entry(const entry_config *config) {
 \end{lstlisting}
 
 \paragraph{Macros associées :}
-Le module propose des macros de création directe encapsulant des structures \texttt{entry\_config} pré-remplies pour des cas d'usage courants.
+Ces macros de création directe agissent comme un véritable mini-langage dédié (DSL - Domain Specific Language) au-dessus de l'API C du wrapper. Elles exploitent les initialisateurs désignés en ligne pour figer définitivement certains champs sémantiques (comme \texttt{.password = true} pour un champ caché ou \texttt{.purpose\_hint = "email"} pour forcer un clavier spécifique sur mobile) tout en laissant d'autres paramètres (comme le \texttt{placeholder}) dynamiques et paramétrables par le développeur. Le résultat est une déclaration de l'interface utilisateur visuellement très hiérarchisée et presque auto-documentée, rappelant la fluidité des frameworks modernes déclaratifs (tels que SwiftUI, Flutter ou React), où la définition structurelle du widget traduit immédiatement son intention fonctionnelle sans noyer le lecteur dans le paramétrage bas niveau.
 
 \begin{lstlisting}[language=C]
 #define CREATE_PASSWORD_ENTRY(ph) create_entry(&(entry_config){.placeholder = ph, .password = true, .purpose_hint = "password"})
@@ -96,7 +96,7 @@ GtkWidget *create_spin_button(const spin_button_config *config) {
 \end{lstlisting}
 
 \paragraph{Macros associées :}
-Des presets de configuration facilitent l'initialisation des plages de valeurs pour les boutons numériques.
+A l'instar des champs de texte, ces macros pré-configurent le comportement des \texttt{SpinButton} pour des cas d'usage typiques (pourcentages, âges, années). Elles masquent la complexité de paramétrage de l'objet \texttt{GtkAdjustment} sous-jacent (limites min/max, pas d'incrément, contraintes de décimales) derrière une syntaxe claire et univoque, augmentant considérablement la productivité lors du montage de formulaires de saisie complexes.
 
 \begin{lstlisting}[language=C]
 #define SPIN_PERCENT(v) (spin_button_config){.min_value = 0, .max_value = 100, .step = 1, .value = v, .digits = 0}

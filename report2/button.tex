@@ -44,7 +44,7 @@ GtkWidget *create_button(const button_config *config) {
 \end{lstlisting}
 
 \paragraph{Macros associées :}
-Les macros de variantes de thèmes permettent de s'abstraire des chaînes de caractères brutes. Elles garantissent l'utilisation de noms de classes CSS cohérents avec la logique interne du module, qui traduit ces alias en classes GTK réelles (ex: \texttt{btn-primary}).
+Les macros de variantes de thèmes (\texttt{BTN\_PRIMARY}, etc.) permettent de s'abstraire des chaînes de caractères brutes lors de la configuration. Bien que simples, elles jouent un rôle crucial pour la fiabilité du code : le compilateur signalera immédiatement une faute de frappe sur le nom de la macro, là où une erreur dans une chaîne littérale comme \texttt{"primay"} passerait inaperçue jusqu'à l'exécution, provoquant un rendu silencieusement incorrect de l'interface. Elles garantissent ainsi l'utilisation de noms de classes CSS cohérents avec la logique interne du module.
 
 \begin{lstlisting}[language=C]
 #define BTN_PRIMARY "primary"

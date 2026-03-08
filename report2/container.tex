@@ -41,7 +41,7 @@ GtkWidget *create_box(const box_config *config) {
 \end{lstlisting}
 
 \paragraph{Macros associées :}
-Le module bénéficie de macros de configuration rapide comme \texttt{BOX\_H(sp)} et \texttt{BOX\_V(sp)}. Ces macros instancient des structures \texttt{box\_config} temporaires, réduisant la verbosité du code utilisateur.
+L'utilisation de macros comme \texttt{BOX\_H(sp)} et \texttt{BOX\_V(sp)} démontre la puissance expressive des littéraux composés pour la définition des structures de mise en page. Plutôt que de déclarer une variable nommée de type \texttt{box\_config} en amont, la macro injecte directement la structure anonyme instanciée au sein même de l'appel de fonction. L'initialisateur désigné garantit que l'orientation est correctement définie sur le bon axe avec l'espacement requis, tout en laissant implicitement les autres propriétés (comme le style global ou l'homogénéité) à leurs valeurs nulles par défaut (sûres et neutres grâce à la garantie de mise à zéro du C99). Cela réduit drastiquement la verbosité du code de composition d'interface.
 
 \begin{lstlisting}[language=C]
 #define ORIENT_HORIZ GTK_ORIENTATION_HORIZONTAL

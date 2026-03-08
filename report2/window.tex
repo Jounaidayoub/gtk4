@@ -100,7 +100,7 @@ GtkWidget *create_window(GtkApplication *app, const window_config *config) {
 \end{lstlisting}
 
 \paragraph{Macros associées :}
-Le module définit des macros pour centraliser les dimensions standards et proposer une création rapide. La macro \texttt{CREATE\_SIMPLE\_WINDOW} instancie une structure \texttt{window\_config} par défaut, tandis que les constantes \texttt{WIN\_SIZE\_*} assurent une cohérence dimensionnelle.
+La macro \texttt{CREATE\_SIMPLE\_WINDOW} illustre parfaitement la synergie entre les macros C et les littéraux composés (compound literals) du C99. En passant directement \texttt{\&(window\_config)\{.title = t, ...\}} en argument, la macro alloue anonymement la structure sur la pile, initialise les champs critiques de manière explicite via les initialisateurs désignés, et transmet son adresse à la fonction constructeur en une seule instruction. Cela évite l'encombrement de la portée locale avec des variables de configuration temporaires, offrant une syntaxe extrêmement compacte et un prototypage accéléré. Les constantes \texttt{WIN\_SIZE\_*} assurent, quant à elles, une cohérence dimensionnelle à travers l'application.
 
 \begin{lstlisting}[language=C]
 #define WIN_SIZE_SMALL  400, 300

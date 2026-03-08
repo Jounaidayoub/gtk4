@@ -54,6 +54,27 @@ Ce rapport documente l'implémentation interne du wrapper GTK4. Contrairement au
 
 Les extraits de code présentés ici reprennent l'implémentation réelle du projet. Les commentaires ont été retirés dans les listings afin de conserver une compilation LaTeX simple et robuste tout en gardant un style visuel identique au premier rapport.
 
+\section{Philosophie de conception : Approche Déclarative et C99}
+
+L'une des innovations majeures de ce wrapper réside dans l'adoption d'un paradigme déclaratif au sein d'un langage procédural comme le C. Au lieu de contraindre le développeur à écrire de multiples appels impératifs (tels que \texttt{gtk\_window\_set\_title()}, \texttt{gtk\_window\_set\_default\_size()}, etc.), l'API centralise l'état désiré dans des structures de configuration (ex: \texttt{window\_config}, \texttt{button\_config}).
+
+Cette approche est rendue particulièrement puissante et expressive grâce à l'utilisation des \textbf{initialisateurs désignés (Designated Initializers)} introduits par la norme C99. Cette fonctionnalité permet d'initialiser une structure en nommant explicitement les champs concernés :
+
+\begin{lstlisting}[language=C]
+window_config config = {
+    .title = "Mon Application",
+    .default_width = 800,
+    .resizable = true
+};
+\end{lstlisting}
+
+L'utilisation des initialisateurs désignés apporte trois bénéfices fondamentaux à l'architecture du projet :
+\begin{enumerate}
+    \item \textbf{Lisibilité accrue (Simulation d'arguments nommés) :} Contrairement aux constructeurs C traditionnels nécessitant de passer de nombreux arguments positionnels dont le sens se perd à la lecture, cette syntaxe documente le code de manière inhérente. Le développeur comprend immédiatement quelle propriété est modifiée, s'approchant de l'ergonomie des langages modernes (comme les paramètres nommés en Python ou les objets de configuration en JavaScript).
+    \item \textbf{Sécurité par défaut (Zero-initialization) :} La norme C99 garantit que tout champ non mentionné explicitement dans un bloc d'initialisation désigné est automatiquement initialisé à zéro (les pointeurs deviennent \texttt{NULL}, les entiers \texttt{0}, et les booléens \texttt{false}). Le wrapper exploite cette garantie pour appliquer des valeurs par défaut sûres. Si un développeur omet le champ \texttt{.title}, le wrapper détectera un pointeur \texttt{NULL} et laissera GTK gérer le comportement par défaut, évitant ainsi les plantages liés aux valeurs résiduelles en mémoire.
+    \item \textbf{Flexibilité et concision :} Les développeurs ne renseignent que les propriétés pertinentes pour leur contexte métier, sans avoir à fournir des valeurs nulles ou factices pour les paramètres dont ils n'ont pas l'utilité.
+\end{enumerate}
+
 \newpage
 
 \input{window}
