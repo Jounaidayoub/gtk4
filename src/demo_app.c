@@ -216,18 +216,18 @@ static GtkWidget *make_inputs_page(showcase_state *state) {
       .user_data = state,
   });
 
-  grid_add(grid, label_user, 0, 0, 1, 1);
-  grid_add(grid, entry_user, 1, 0, 1, 1);
-  grid_add(grid, label_pass, 0, 1, 1, 1);
-  grid_add(grid, entry_pass, 1, 1, 1, 1);
-  grid_add(grid,
-                  create_label(&(label_config){.text = "Role", .style = {0}}),
-                  0, 2, 1, 1);
-  grid_add(grid, dropdown, 1, 2, 1, 1);
-  grid_add(grid,
-                  create_label(&(label_config){.text = "Score", .style = {0}}),
-                  0, 3, 1, 1);
-  grid_add(grid, spin, 1, 3, 1, 1);
+  container_add(grid, label_user, 0, 0, 1, 1);
+  container_add(grid, entry_user, 1, 0, 1, 1);
+  container_add(grid, label_pass, 0, 1, 1, 1);
+  container_add(grid, entry_pass, 1, 1, 1, 1);
+  container_add(grid,
+                create_label(&(label_config){.text = "Role", .style = {0}}),
+                0, 2, 1, 1);
+  container_add(grid, dropdown, 1, 2, 1, 1);
+  container_add(grid,
+                create_label(&(label_config){.text = "Score", .style = {0}}),
+                0, 3, 1, 1);
+  container_add(grid, spin, 1, 3, 1, 1);
   return grid;
 }
 
@@ -242,47 +242,50 @@ static GtkWidget *make_buttons_page(showcase_state *state) {
                 .margin_end = 16},
   });
 
-  gtk_box_append(GTK_BOX(box),
-                 create_button(&(button_config){
-                     .label = "_Save",
-                     .icon_name = "document-save-symbolic",
-                     .theme_variant = "primary",
-                     .use_underline = true,
-                     .has_frame = true,
-                     .can_shrink = false,
-                     .icon_size = 16,
-                     .style = {.width_request = 180, .height_request = 38},
-                     .on_clicked = on_button_clicked,
-                     .user_data = state,
-                 }));
+    container_add(box,
+          create_button(&(button_config){
+            .label = "_Save",
+            .icon_name = "document-save-symbolic",
+            .theme_variant = "primary",
+            .use_underline = true,
+            .has_frame = true,
+            .can_shrink = false,
+            .icon_size = 16,
+            .style = {.width_request = 180, .height_request = 38},
+            .on_clicked = on_button_clicked,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
 
-  gtk_box_append(GTK_BOX(box),
-                 create_button(&(button_config){
-                     .label = "Approve",
-                     .icon_name = "emblem-ok-symbolic",
-                     .theme_variant = "success",
-                     .use_underline = false,
-                     .has_frame = true,
-                     .can_shrink = true,
-                     .icon_size = 16,
-                     .style = {.width_request = 180, .height_request = 38},
-                     .on_clicked = on_button_clicked,
-                     .user_data = state,
-                 }));
+    container_add(box,
+          create_button(&(button_config){
+            .label = "Approve",
+            .icon_name = "emblem-ok-symbolic",
+            .theme_variant = "success",
+            .use_underline = false,
+            .has_frame = true,
+            .can_shrink = true,
+            .icon_size = 16,
+            .style = {.width_request = 180, .height_request = 38},
+            .on_clicked = on_button_clicked,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
 
-  gtk_box_append(GTK_BOX(box),
-                 create_button(&(button_config){
-                     .label = "Delete",
-                     .icon_name = "user-trash-symbolic",
-                     .theme_variant = "danger",
-                     .use_underline = false,
-                     .has_frame = true,
-                     .can_shrink = true,
-                     .icon_size = 16,
-                     .style = {.width_request = 180, .height_request = 38},
-                     .on_clicked = on_button_clicked,
-                     .user_data = state,
-                 }));
+    container_add(box,
+          create_button(&(button_config){
+            .label = "Delete",
+            .icon_name = "user-trash-symbolic",
+            .theme_variant = "danger",
+            .use_underline = false,
+            .has_frame = true,
+            .can_shrink = true,
+            .icon_size = 16,
+            .style = {.width_request = 180, .height_request = 38},
+            .on_clicked = on_button_clicked,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
 
   GtkWidget *radio_a = create_radio_button(&(radio_button_config){
       .label = "Mode A",
@@ -300,8 +303,8 @@ static GtkWidget *make_buttons_page(showcase_state *state) {
       .on_toggled = NULL,
       .user_data = NULL,
   });
-  gtk_box_append(GTK_BOX(box), radio_a);
-  gtk_box_append(GTK_BOX(box), radio_b);
+  container_add(box, radio_a, 0, 0, 0, 0);
+  container_add(box, radio_b, 0, 0, 0, 0);
   return box;
 }
 
@@ -316,14 +319,16 @@ static GtkWidget *make_toggles_page(showcase_state *state) {
                 .margin_end = 16},
   });
 
-  gtk_box_append(GTK_BOX(box), create_checkbox(&(checkbox_config){
-                                   .label = "Enable notifications",
-                                   .active = false,
-                                   .inconsistent = false,
-                                   .style = {.margin_bottom = 6},
-                                   .on_toggled = on_checkbox_toggled,
-                                   .user_data = state,
-                               }));
+    container_add(box,
+          create_checkbox(&(checkbox_config){
+            .label = "Enable notifications",
+            .active = false,
+            .inconsistent = false,
+            .style = {.margin_bottom = 6},
+            .on_toggled = on_checkbox_toggled,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
 
   GtkWidget *switch_row = create_switch_row(
       &(switch_config){
@@ -335,7 +340,7 @@ static GtkWidget *make_toggles_page(showcase_state *state) {
           .user_data = state,
       },
       &state->switch_widget);
-  gtk_box_append(GTK_BOX(box), switch_row);
+  container_add(box, switch_row, 0, 0, 0, 0);
   return box;
 }
 
@@ -366,32 +371,36 @@ static GtkWidget *make_displays_page(showcase_state *state) {
   });
   state->spinner_running = true;
 
-  gtk_box_append(GTK_BOX(box), state->progress);
-  gtk_box_append(GTK_BOX(box), state->spinner);
-  gtk_box_append(GTK_BOX(box), create_button(&(button_config){
-                                   .label = "Advance progress",
-                                   .icon_name = "go-next-symbolic",
-                                   .theme_variant = "primary",
-                                   .use_underline = false,
-                                   .has_frame = true,
-                                   .can_shrink = true,
-                                   .icon_size = 16,
-                                   .style = {.width_request = 220},
-                                   .on_clicked = on_inc_progress,
-                                   .user_data = state,
-                               }));
-  gtk_box_append(GTK_BOX(box), create_button(&(button_config){
-                                   .label = "Toggle spinner",
-                                   .icon_name = "view-refresh-symbolic",
-                                   .theme_variant = "flat",
-                                   .use_underline = false,
-                                   .has_frame = false,
-                                   .can_shrink = true,
-                                   .icon_size = 16,
-                                   .style = {.width_request = 220},
-                                   .on_clicked = on_toggle_spinner,
-                                   .user_data = state,
-                               }));
+    container_add(box, state->progress, 0, 0, 0, 0);
+    container_add(box, state->spinner, 0, 0, 0, 0);
+    container_add(box,
+          create_button(&(button_config){
+            .label = "Advance progress",
+            .icon_name = "go-next-symbolic",
+            .theme_variant = "primary",
+            .use_underline = false,
+            .has_frame = true,
+            .can_shrink = true,
+            .icon_size = 16,
+            .style = {.width_request = 220},
+            .on_clicked = on_inc_progress,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
+    container_add(box,
+          create_button(&(button_config){
+            .label = "Toggle spinner",
+            .icon_name = "view-refresh-symbolic",
+            .theme_variant = "flat",
+            .use_underline = false,
+            .has_frame = false,
+            .can_shrink = true,
+            .icon_size = 16,
+            .style = {.width_request = 220},
+            .on_clicked = on_toggle_spinner,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
   return box;
 }
 
@@ -407,28 +416,32 @@ static GtkWidget *make_dialogs_page(showcase_state *state) {
                 .margin_end = 16},
   });
 
-  gtk_box_append(GTK_BOX(box), create_button(&(button_config){
-                                   .label = "Open Alert",
-                                   .icon_name = "dialog-information-symbolic",
-                                   .theme_variant = "primary",
-                                   .use_underline = false,
-                                   .has_frame = true,
-                                   .can_shrink = true,
-                                   .icon_size = 16,
-                                   .style = {.width_request = 180},
-                                   .on_clicked = on_show_dialog,
-                                   .user_data = state,
-                               }));
+    container_add(box,
+          create_button(&(button_config){
+            .label = "Open Alert",
+            .icon_name = "dialog-information-symbolic",
+            .theme_variant = "primary",
+            .use_underline = false,
+            .has_frame = true,
+            .can_shrink = true,
+            .icon_size = 16,
+            .style = {.width_request = 180},
+            .on_clicked = on_show_dialog,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
 
-  gtk_box_append(GTK_BOX(box), create_calendar(&(calendar_config){
-                                   .selected_date = now,
-                                   .show_day_names = true,
-                                   .show_week_numbers = true,
-                                   .no_month_change = false,
-                                   .style = {.margin_top = 8},
-                                   .on_day_selected = on_day_selected,
-                                   .user_data = state,
-                               }));
+    container_add(box,
+          create_calendar(&(calendar_config){
+            .selected_date = now,
+            .show_day_names = true,
+            .show_week_numbers = true,
+            .no_month_change = false,
+            .style = {.margin_top = 8},
+            .on_day_selected = on_day_selected,
+            .user_data = state,
+          }),
+          0, 0, 0, 0);
   g_date_time_unref(now);
   return box;
 }
@@ -560,13 +573,15 @@ static GtkWidget *build_showcase(GtkApplication *app, GtkWindow *window,
        .items = help_items,
        .item_count = G_N_ELEMENTS(help_items)},
   };
-  gtk_box_append(GTK_BOX(root), create_menubar(&(menubar_config){
-                                     .sections = sections,
-                                     .section_count = G_N_ELEMENTS(sections),
-                                     .action_map = G_ACTION_MAP(app),
-                                     .layout = MENU_LAYOUT_VERTICAL,
-                                     .show_arrow_indicators = true,
-                                 }));
+    container_add(root,
+          create_menubar(&(menubar_config){
+            .sections = sections,
+            .section_count = G_N_ELEMENTS(sections),
+            .action_map = G_ACTION_MAP(app),
+            .layout = MENU_LAYOUT_VERTICAL,
+            .show_arrow_indicators = true,
+          }),
+          0, 0, 0, 0);
 
   GtkWidget *hbox = create_box(&(box_config){
       .orientation = GTK_ORIENTATION_HORIZONTAL,
@@ -600,13 +615,14 @@ static GtkWidget *build_showcase(GtkApplication *app, GtkWindow *window,
   stack_add_page(stack, make_displays_page(state), "displays", "Displays");
   stack_add_page(stack, make_dialogs_page(state), "dialogs", "Dialogs");
 
-  gtk_box_append(GTK_BOX(hbox), sidebar);
-  gtk_box_append(GTK_BOX(hbox), stack);
-  gtk_box_append(GTK_BOX(root), hbox);
+  container_add(hbox, sidebar, 0, 0, 0, 0);
+  container_add(hbox, stack, 0, 0, 0, 0);
+  container_add(root, hbox, 0, 0, 0, 0);
 
-  gtk_box_append(GTK_BOX(root),
-                 create_separator(&(separator_config){
-                     .orientation = GTK_ORIENTATION_HORIZONTAL}));
+    container_add(root,
+          create_separator(&(separator_config){
+            .orientation = GTK_ORIENTATION_HORIZONTAL}),
+          0, 0, 0, 0);
   state->status_label = create_label(&(label_config){
       .text = "Ready",
       .selectable = false,
@@ -618,7 +634,7 @@ static GtkWidget *build_showcase(GtkApplication *app, GtkWindow *window,
                 .margin_start = 12,
                 .margin_end = 12},
   });
-  gtk_box_append(GTK_BOX(root), state->status_label);
+  container_add(root, state->status_label, 0, 0, 0, 0);
   return root;
 }
 
