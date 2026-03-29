@@ -1,0 +1,11 @@
+{
+
+    "xml.format.enabled": true,
+    "xml.format.splitAttributes": "alignWithFirstAttr",
+    "xml.fileAssociations": [
+        {
+            "pattern": "*.xml",
+            "systemId": "./schemas/ui-wrapper.xsd"
+        }
+    ],
+}
