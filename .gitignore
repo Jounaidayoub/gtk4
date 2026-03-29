@@ -55,7 +55,9 @@ dkms.conf
 # debug information files
 *.dwo
 
-
+.agents/
+skills-lock.json
+docs/
 
 build/
 .cache/

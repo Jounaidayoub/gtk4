@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+  <xs:simpleType name="boolLike">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true"/>
+      <xs:enumeration value="false"/>
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="orientationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="horizontal"/>
+      <xs:enumeration value="vertical"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="alignType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="start"/>
+      <xs:enumeration value="center"/>
+      <xs:enumeration value="end"/>
+      <xs:enumeration value="fill"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="stackTransitionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="crossfade"/>
+      <xs:enumeration value="slide"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:attributeGroup name="commonStyleAttrs">
+    <xs:attribute name="style-margin-top" type="xs:integer"/>
+    <xs:attribute name="style-margin-bottom" type="xs:integer"/>
+    <xs:attribute name="style-margin-start" type="xs:integer"/>
+    <xs:attribute name="style-margin-end" type="xs:integer"/>
+    <xs:attribute name="style-width" type="xs:integer"/>
+    <xs:attribute name="style-height" type="xs:integer"/>
+    <xs:attribute name="style-halign" type="alignType"/>
+    <xs:attribute name="style-valign" type="alignType"/>
+    <xs:attribute name="style-hexpand" type="boolLike"/>
+    <xs:attribute name="style-vexpand" type="boolLike"/>
+    <xs:attribute name="style-css-class" type="xs:string"/>
+    <xs:attribute name="tooltip" type="xs:string"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="layoutAttrs">
+    <xs:attribute name="layout-col" type="xs:integer"/>
+    <xs:attribute name="layout-row" type="xs:integer"/>
+    <xs:attribute name="layout-colspan" type="xs:integer"/>
+    <xs:attribute name="layout-rowspan" type="xs:integer"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="globalWidgetAttrs">
+    <xs:attribute name="id" type="xs:string"/>
+    <xs:attributeGroup ref="commonStyleAttrs"/>
+    <xs:attributeGroup ref="layoutAttrs"/>
+  </xs:attributeGroup>
+
+  <xs:group name="widgetChildren">
+    <xs:choice>
+      <xs:element ref="box"/>
+      <xs:element ref="grid"/>
+      <xs:element ref="stack"/>
+      <xs:element ref="stack-sidebar"/>
+      <xs:element ref="button"/>
+      <xs:element ref="entry"/>
+      <xs:element ref="spin-button"/>
+      <xs:element ref="dropdown"/>
+      <xs:element ref="calendar"/>
+      <xs:element ref="label"/>
+      <xs:element ref="image"/>
+      <xs:element ref="progress-bar"/>
+      <xs:element ref="spinner"/>
+      <xs:element ref="separator"/>
+      <xs:element ref="checkbox"/>
+      <xs:element ref="switch"/>
+      <xs:element ref="radio-button"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="windowType">
+    <xs:sequence>
+      <xs:group ref="widgetChildren" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="title" type="xs:string"/>
+    <xs:attribute name="icon-name" type="xs:string"/>
+    <xs:attribute name="widget-name" type="xs:string"/>
+    <xs:attribute name="background-image" type="xs:string"/>
+    <xs:attribute name="default-width" type="xs:integer"/>
+    <xs:attribute name="default-height" type="xs:integer"/>
+    <xs:attribute name="min-width" type="xs:integer"/>
+    <xs:attribute name="min-height" type="xs:integer"/>
+    <xs:attribute name="max-width" type="xs:integer"/>
+    <xs:attribute name="max-height" type="xs:integer"/>
+    <xs:attribute name="resizable" type="boolLike"/>
+    <xs:attribute name="decorated" type="boolLike"/>
+    <xs:attribute name="modal" type="boolLike"/>
+    <xs:attribute name="maximized" type="boolLike"/>
+    <xs:attributeGroup ref="globalWidgetAttrs"/>
+  </xs:complexType>
+
+  <xs:complexType name="containerType">
+    <xs:sequence>
+      <xs:group ref="widgetChildren" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="globalWidgetAttrs"/>
+  </xs:complexType>
+
+  <xs:complexType name="leafType">
+    <xs:attributeGroup ref="globalWidgetAttrs"/>
+  </xs:complexType>
+
+  <xs:element name="window" type="windowType"/>
+
+  <xs:element name="box">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="containerType">
+          <xs:attribute name="orientation" type="orientationType"/>
+          <xs:attribute name="spacing" type="xs:integer"/>
+          <xs:attribute name="homogeneous" type="boolLike"/>
+          <xs:attribute name="align" type="alignType"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="grid">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="containerType">
+          <xs:attribute name="column-spacing" type="xs:integer"/>
+          <xs:attribute name="row-spacing" type="xs:integer"/>
+          <xs:attribute name="homogeneous-columns" type="boolLike"/>
+          <xs:attribute name="homogeneous-rows" type="boolLike"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="stack">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="stack-page" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="transition" type="stackTransitionType"/>
+      <xs:attribute name="duration-ms" type="xs:integer"/>
+      <xs:attribute name="vhomogeneous" type="boolLike"/>
+      <xs:attribute name="hhomogeneous" type="boolLike"/>
+      <xs:attributeGroup ref="globalWidgetAttrs"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="stack-sidebar">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="stack-id" type="xs:string" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="stack-page">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="widgetChildren" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="title" type="xs:string"/>
+      <xs:attribute name="align" type="alignType"/>
+      <xs:attributeGroup ref="globalWidgetAttrs"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="button">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="label" type="xs:string"/>
+          <xs:attribute name="icon-name" type="xs:string"/>
+          <xs:attribute name="theme-variant" type="xs:string"/>
+          <xs:attribute name="use-underline" type="boolLike"/>
+          <xs:attribute name="has-frame" type="boolLike"/>
+          <xs:attribute name="can-shrink" type="boolLike"/>
+          <xs:attribute name="icon-size" type="xs:integer"/>
+          <xs:attribute name="on-clicked" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="placeholder" type="xs:string"/>
+          <xs:attribute name="default-text" type="xs:string"/>
+          <xs:attribute name="purpose-hint" type="xs:string"/>
+          <xs:attribute name="password" type="boolLike"/>
+          <xs:attribute name="editable" type="boolLike"/>
+          <xs:attribute name="max-length" type="xs:integer"/>
+          <xs:attribute name="on-changed" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="spin-button">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="min" type="xs:decimal"/>
+          <xs:attribute name="max" type="xs:decimal"/>
+          <xs:attribute name="step" type="xs:decimal"/>
+          <xs:attribute name="value" type="xs:decimal"/>
+          <xs:attribute name="digits" type="xs:integer"/>
+          <xs:attribute name="numeric-only" type="boolLike"/>
+          <xs:attribute name="wrap" type="boolLike"/>
+          <xs:attribute name="on-value-changed" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="dropdown">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="options" type="xs:string"/>
+          <xs:attribute name="selected-index" type="xs:integer"/>
+          <xs:attribute name="enable-search" type="boolLike"/>
+          <xs:attribute name="on-selected" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="calendar">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="show-day-names" type="boolLike"/>
+          <xs:attribute name="show-week-numbers" type="boolLike"/>
+          <xs:attribute name="no-month-change" type="boolLike"/>
+          <xs:attribute name="on-day-selected" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="label">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="text" type="xs:string"/>
+          <xs:attribute name="selectable" type="boolLike"/>
+          <xs:attribute name="wrap" type="boolLike"/>
+          <xs:attribute name="max-width-chars" type="xs:integer"/>
+          <xs:attribute name="ellipsize" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="image">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="icon-name" type="xs:string"/>
+          <xs:attribute name="file-path" type="xs:string"/>
+          <xs:attribute name="pixel-size" type="xs:integer"/>
+          <xs:attribute name="keep-aspect" type="boolLike"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="progress-bar">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="fraction" type="xs:decimal"/>
+          <xs:attribute name="text" type="xs:string"/>
+          <xs:attribute name="show-text" type="boolLike"/>
+          <xs:attribute name="inverted" type="boolLike"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="spinner">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="size" type="xs:integer"/>
+          <xs:attribute name="spinning" type="boolLike"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="separator">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="orientation" type="orientationType"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="checkbox">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="label" type="xs:string"/>
+          <xs:attribute name="active" type="boolLike"/>
+          <xs:attribute name="inconsistent" type="boolLike"/>
+          <xs:attribute name="on-toggled" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="switch">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="label" type="xs:string"/>
+          <xs:attribute name="active" type="boolLike"/>
+          <xs:attribute name="state" type="boolLike"/>
+          <xs:attribute name="on-active-changed" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="radio-button">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="leafType">
+          <xs:attribute name="label" type="xs:string"/>
+          <xs:attribute name="group-with" type="xs:string"/>
+          <xs:attribute name="is-active" type="boolLike"/>
+          <xs:attribute name="on-toggled" type="xs:string"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
