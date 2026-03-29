@@ -1,0 +1,348 @@
+<window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="schemas/ui-wrapper.xsd"
+       title="GTK UI Wrapper Demo (XML Edition)"
+        icon-name="applications-development-symbolic"
+        widget-name="wrapper-window"
+        background-image="image1.png"
+        default-width="700"
+        default-height="300"
+        min-width="400"
+        min-height="300"
+        resizable="true"
+        decorated="true"
+        >
+
+  <box orientation="vertical"
+       spacing="0"
+       style-hexpand="true"
+       style-vexpand="true"
+       >
+
+    <grid column-spacing="0"
+          style-hexpand="true"
+          style-vexpand="true"
+          homogeneous-columns="false">
+          
+
+      <stack id="main_stack"
+             transition="crossfade"
+             duration-ms="280"
+             style-hexpand="true"
+             style-vexpand="true"
+             layout-col="1"
+             layout-row="0">
+
+        <!-- Inputs Page -->
+        <stack-page name="inputs"
+                    title="Inputs ma walo">
+          <grid column-spacing="12"
+                row-spacing="12"
+                style-margin-top="16"
+                style-margin-bottom="16"
+                style-margin-start="16"
+                style-margin-end="16">
+            <label text="Username"
+                   layout-col="0"
+                   layout-row="0" />
+            <entry placeholder="enter username"
+                   max-length="60"
+                   style-hexpand="true"
+                   on-changed="on_entry_changed"
+                   layout-col="1"
+                   layout-row="0" />
+
+            <label text="Password"
+                   layout-col="0"
+                   layout-row="1" />
+            <entry placeholder="enter password"
+                   password="true"
+                   max-length="60"
+                   style-hexpand="true"
+                   on-changed="on_entry_changed"
+                   layout-col="1"
+                   layout-row="1" />
+
+            <label text="Role"
+                   layout-col="0"
+                   layout-row="2" />
+            <dropdown options="Admin,Teacher,Student,Guest"
+                      enable-search="true"
+                      style-hexpand="true"
+                      on-selected="on_role_selected"
+                      layout-col="1"
+                      layout-row="2" />
+
+            <label text="Score"
+                   layout-col="0"
+                   layout-row="3" />
+            <spin-button min="0"
+                         max="100"
+                         step="0.5"
+                         value="12.5"
+                         digits="1"
+                         numeric-only="true"
+                         style-width="140"
+                         on-value-changed="on_spin_value_changed"
+                         layout-col="1"
+                         layout-row="3" />
+          </grid>
+        </stack-page>
+
+        <!-- Buttons Page -->
+        <stack-page name="buttons"
+                    title="Buttons"
+                    style-margin-top="16"
+                    style-margin-bottom="16"
+                    style-margin-start="16"
+                    style-margin-end="16"
+                    align="start">
+          <button label="_Save"
+                  icon-name="document-save-symbolic"
+                  theme-variant="primary"
+                  use-underline="true"
+                  style-width="180"
+                  style-height="38"
+                  on-clicked="on_button_clicked" />
+          <button label="Approve"
+                  icon-name="emblem-ok-symbolic"
+                  theme-variant="success"
+                  style-width="180"
+                  style-height="38"
+                  on-clicked="on_button_clicked" />
+          <button label="Delete"
+                  icon-name="user-trash-symbolic"
+                  theme-variant="danger"
+                  style-width="180"
+                  style-height="38"
+                  on-clicked="on_button_clicked" />
+          <radio-button label="Mode A"
+                        id="radio_a"
+                        is-active="true" />
+          <radio-button label="Mode B"
+                        id="radio_b"
+                        group-with="radio_a" />
+        </stack-page>
+
+        <!-- Toggles Page -->
+        <stack-page name="toggles"
+                    title="Toggles"
+                    style-margin-top="16"
+                    style-margin-bottom="16"
+                    style-margin-start="16"
+                    style-margin-end="16">
+          <checkbox label="Enable notifications"
+                    on-toggled="on_checkbox_toggled"
+                    style-margin-bottom="6" />
+          <switch label="Realtime sync"
+                  active="true"
+                  state="true"
+                  on-active-changed="on_switch_changed" />
+        </stack-page>
+
+        <!-- Displays Page -->
+        <stack-page name="displays"
+                    title="Displays"
+                    style-margin-top="16"
+                    style-margin-bottom="16"
+                    style-margin-start="16"
+                    style-margin-end="16">
+          <progress-bar fraction="0.32"
+                        text="Working"
+                        show-text="true"
+                        id="demo_progress"
+                        style-width="340" />
+          <spinner spinning="true"
+                   size="26"
+                   id="demo_spinner" />
+          <button label="Advance progress"
+                  icon-name="go-next-symbolic"
+                  theme-variant="primary"
+                  style-width="220"
+                  on-clicked="on_inc_progress" />
+          <button label="Toggle spinner"
+                  icon-name="view-refresh-symbolic"
+                  theme-variant="flat"
+                  has-frame="false"
+                  style-width="220"
+                  on-clicked="on_toggle_spinner" />
+        </stack-page>
+
+        <!-- Dialogs Page -->
+        <stack-page name="dialogs"
+                    title="Dialogs"
+                    style-margin-top="16"
+                    style-margin-bottom="16"
+                    style-margin-start="16"
+                    style-margin-end="16">
+          <button label="Open Alert"
+                  icon-name="dialog-information-symbolic"
+                  theme-variant="primary"
+                  style-width="180"
+                  on-clicked="on_show_dialog" />
+          <calendar show-day-names="true"
+                    show-week-numbers="true"
+                    style-margin-top="8"
+                    on-day-selected="on_day_selected" />
+        </stack-page>
+
+        <!-- Icons Page -->
+        <stack-page name="icons"
+                    title="Icons &amp; Images"
+                    style-margin-top="16"
+                    style-margin-bottom="16"
+                    style-margin-start="16"
+                    style-margin-end="16">
+          <label text="System Icons"
+                 style-css-class="title-2"
+                 style-margin-bottom="4" />
+          <box orientation="horizontal"
+               spacing="64"
+               style-halign="center">
+            <image icon-name="dialog-information-symbolic"
+                   pixel-size="32"
+                   tooltip="Information" />
+            <image icon-name="dialog-warning-symbolic"
+                   pixel-size="32"
+                   tooltip="Warning" />
+            <image icon-name="dialog-error-symbolic"
+                   pixel-size="32"
+                   tooltip="Error" />
+            <image icon-name="emblem-favorite-symbolic"
+                   pixel-size="32"
+                   tooltip="Favorite" />
+            <image icon-name="face-smile-symbolic"
+                   pixel-size="32"
+                   tooltip="Smile" />
+          </box>
+
+          <separator orientation="horizontal" />
+
+          <label text="Interactive Icon Preview"
+                 style-css-class="title-2"
+                 style-margin-bottom="4" />
+          <image id="icon_preview"
+                 icon-name="applications-development-symbolic"
+                 pixel-size="48"
+                 style-halign="center" />
+
+          <box orientation="horizontal"
+               spacing="8"
+               style-halign="center">
+            <button icon-name="zoom-out-symbolic"
+                    theme-variant="flat"
+                    has-frame="false"
+                    icon-size="16"
+                    on-clicked="on_zoom_out"
+                    tooltip="Zoom Out" />
+            <label id="icon_size_label"
+                   text="48 px"
+                   style-halign="center" />
+            <button icon-name="zoom-in-symbolic"
+                    theme-variant="flat"
+                    has-frame="false"
+                    icon-size="16"
+                    on-clicked="on_zoom_in"
+                    tooltip="Zoom In" />
+          </box>
+
+          <dropdown options="Development,Smile,Weather,Warning,Favorite,Audio"
+                    style-width="200"
+                    style-halign="center"
+                    on-selected="on_icon_selected" />
+        </stack-page>
+
+        <!-- Toolbar Page -->
+        <stack-page name="toolbar"
+                    title="Toolbar"
+                    style-margin-top="16"
+                    style-margin-bottom="16"
+                    style-margin-start="16"
+                    style-margin-end="16">
+          <label text="Icon-Only Toolbar"
+                 style-css-class="title-2"
+                 style-margin-bottom="4" />
+          <box orientation="horizontal"
+               spacing="4"
+               style-halign="center">
+            <button icon-name="document-new-symbolic"
+                    icon-size="20"
+                    on-clicked="on_icon_btn_clicked"
+                    tooltip="New" />
+            <button icon-name="document-open-symbolic"
+                    icon-size="20"
+                    on-clicked="on_icon_btn_clicked"
+                    tooltip="Open" />
+            <button icon-name="document-save-symbolic"
+                    icon-size="20"
+                    on-clicked="on_icon_btn_clicked"
+                    tooltip="Save" />
+            <separator orientation="vertical"
+                       style-margin-start="4"
+                       style-margin-end="4" />
+            <button icon-name="edit-copy-symbolic"
+                    icon-size="20"
+                    on-clicked="on_copy_clicked"
+                    tooltip="Copy" />
+          </box>
+
+          <separator orientation="horizontal" />
+
+          <label text="Labeled Icon Buttons"
+                 style-css-class="title-2"
+                 style-margin-bottom="4" />
+          <grid column-spacing="10"
+                row-spacing="10"
+                style-halign="center">
+            <button label="Home"
+                    icon-name="go-home-symbolic"
+                    theme-variant="primary"
+                    style-width="130"
+                    on-clicked="on_home_clicked"
+                    layout-col="0"
+                    layout-row="0" />
+            <button label="Search"
+                    icon-name="system-search-symbolic"
+                    theme-variant="primary"
+                    style-width="130"
+                    on-clicked="on_search_clicked"
+                    layout-col="1"
+                    layout-row="0" />
+            <button label="Star"
+                    icon-name="starred-symbolic"
+                    theme-variant="success"
+                    style-width="130"
+                    on-clicked="on_star_clicked"
+                    layout-col="0"
+                    layout-row="1" />
+            <button label="Copy"
+                    icon-name="edit-copy-symbolic"
+                    theme-variant="success"
+                    style-width="130"
+                    on-clicked="on_copy_clicked"
+                    layout-col="1"
+                    layout-row="1" />
+          </grid>
+        </stack-page>
+
+      </stack>
+
+      <!-- Sidebar needs to be defined after the stack so the parser can locate stack_id, 
+           but we place it at col=0 so it appears on the left in the grid -->
+      <stack-sidebar stack-id="main_stack"
+                     style-margin-top="10"
+                     style-margin-bottom="10"
+                     style-margin-start="10"
+                     style-margin-end="6"
+                     layout-col="0"
+                     layout-row="0" />
+
+    </grid>
+    <label id="status_label"
+           text="Ready"
+           style-margin-top="8"
+           style-margin-bottom="8"
+           style-margin-start="12"
+           style-margin-end="12" />
+
+  </box>
+</window>
