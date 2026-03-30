@@ -1,0 +1,14 @@
+{
+	
+	"UI Window Wrapper": {
+    "scope": "xml",
+    "prefix": "win",
+    "body": [
+      "<window xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
+      "        xsi:noNamespaceSchemaLocation=\"schemas/ui-wrapper.xsd\">",
+      "    $0",
+      "</window>"
+    ],
+    "description": "Generates the root window element for the UI wrapper"
+  }
+}
