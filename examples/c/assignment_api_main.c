@@ -272,7 +272,7 @@ static void assignment_activate(GtkApplication *app, gpointer user_data) {
     state->window = create_window(app, &(window_config){
         .title = "Test des fonctions GTK+",
         .icon_name = "applications-development-symbolic",
-        .background_image_path = "image.png",
+        .background_image_path = "image2.png",
         .default_width = 900,
         .default_height = 900,
         .min_width = 760,
